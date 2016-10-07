@@ -1,0 +1,47 @@
+{
+  "author": {
+    "email": "adam@hmlad.com",
+    "name": "Adam Hull"
+  },
+  "bugs": {
+    "url": "https://github.com/hurrymaplelad/metalsmith-feed/issues"
+  },
+  "dependencies": {
+    "extend": "~2.0.0",
+    "rss": "~1.1.0"
+  },
+  "description": "A metalsmith plugin to generate an RSS feed for a collection",
+  "devDependencies": {
+    "coffee-script": ">=1.7.x",
+    "metalsmith": "~1.0.1",
+    "metalsmith-collections": "~0.6.0",
+    "mocha": "~1.x.x",
+    "xml2js": "~0.4.4"
+  },
+  "gitHead": "0fc5dd2efe46187d040fae2f1fd70ea7eb3b8de8",
+  "homepage": "https://github.com/hurrymaplelad/metalsmith-feed",
+  "keywords": [
+    "metalsmith",
+    "atom",
+    "rss",
+    "feed",
+    "plugin"
+  ],
+  "license": "MIT",
+  "main": "lib/metalsmith_feed",
+  "name": "metalsmith-feed",
+  "optionalDependencies": {},
+  "readme": "metalsmith-feed [![NPM version](https://badge.fury.io/js/metalsmith-feed.png)](http://badge.fury.io/js/metalsmith-feed) [![Build Status](https://travis-ci.org/hurrymaplelad/metalsmith-feed.png)](https://travis-ci.org/hurrymaplelad/metalsmith-feed)\n==============\n\nA [metalsmith](https://github.com/segmentio/metalsmith) plugin to generate an RSS feed for a collection.\n\nRequires [metalsmith-collections](https://github.com/segmentio/metalsmith-collections).  Plays nicely with [permalinks](https://github.com/segmentio/metalsmith-permalinks), [more](https://github.com/kfranqueiro/metalsmith-more), and [excerpts](https://github.com/segmentio/metalsmith-excerpts).\n\nUsage\n-----\n``` coffee\ncollections = require 'metalsmith-collections'\nfeed = require 'metalsmith-feed'\n\nMetalsmith('example')\n  .metadata\n    site:\n      title: 'Geocities'\n      url: 'http://example.com'\n      author: 'Philodemus'\n  .use collections(posts: '*.html')\n  .use feed(collection: 'posts')\n```\n\nOptions\n-------\nTake a look at the tests for [example usage](test/metalsmith_feed.test.coffee).\n\n- `collection` **string** *Required*. The name of the configured metalsmith-collection to feed.\n\n- `limit` **Number** *Optional*. Maximum number of documents to show in the feed. Defaults to `20`. Set to `false` to include all documents.\n\n- `destination` **string** *Optional*. File path to write the rendered XML feed. Defaults to `'rss.xml'`.\n\n- `postDescription` **function** *Optional*. Takes a file and returns a description string.  Defaults to `(file) -> file.less or file.excerpt or file.contents`\n\n- `postCustomElements` **function** *Optional*. From a file, return custom elements, like thumbnails, images, or information necessary to publish podcasts.\n\nRemaining options are passed to the [rss](https://github.com/dylang/node-rss) module as `feedOptions`, along with `metadata.site`.\n\nIf files have `path` metadata (perhaps from [permalinks](https://github.com/segmentio/metalsmith-permalinks)) but not `url` metadata, we'll prefix `path` with `site_url` to generate links. Feed item descriptions default to `file.less` from metalsmith-more, `file.excerpt` from metalsmith-excerpt, and finally the full `file.contents`.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/hurrymaplelad/metalsmith-feed.git"
+  },
+  "scripts": {
+    "compile": "coffee --bare --compile --output lib/ src/",
+    "prepublish": "npm run compile",
+    "pretest": "npm run compile",
+    "test": "mocha"
+  },
+  "version": "0.2.0"
+}
